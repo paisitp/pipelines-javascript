@@ -27,22 +27,24 @@ steps:
     npm run compile
   displayName: 'npm install and compile'
 
-- script: npm test
-  displayName: 'npm Test Mocha'
+- script: gulp
+  displayName: 'run Gulp task'
 
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: '**/TEST-RESULTS.xml'
     testRunTitle: 'Test results for JavaScript using gulp'
 
-- script: npm run build
-  displayName: 'npm build'
-
 - task: PublishCodeCoverageResults@1
   inputs: 
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+
+
+- script: npm run build
+  displayName: 'npm build'
+
     
 - task: PublishBuildArtifacts@1
   inputs:
