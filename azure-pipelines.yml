@@ -27,8 +27,8 @@ steps:
     npm run compile
   displayName: 'npm install and compile'
 
-- script: gulp
-  displayName: 'run Gulp task'
+- script: mocha test --reporter mocha-junit-reporter
+  displayName: 'Run Mocha test'
 
 - task: PublishTestResults@2
   inputs:
