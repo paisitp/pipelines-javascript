@@ -24,8 +24,8 @@ steps:
 
 - script: |
     npm install
-    npm run compile
-  displayName: 'npm install and compile'
+    npm run build
+  displayName: 'npm install and build'
 
 - script: mocha test --reporter mocha-junit-reporter
   displayName: 'Run Mocha test'
