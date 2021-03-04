@@ -16,6 +16,7 @@ pool:
 #     node_13_x:
 #       node_version: 13.x
 
+stages:
 
 steps:
 - task: NodeTool@0 
@@ -32,6 +33,16 @@ steps:
   inputs:
     command: 'custom'
     customCommand: 'build'
+    
+- task: gulp@0
+  inputs:
+    gulpFile: 'gulpfile.js'
+    targets: 
+    gulpjs: '*/gulpfile.js'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    enableCodeCoverage: true
+    testFiles: 'test/*.js'
 
 # - script: mocha test --reporter mocha-junit-reporter
 #   displayName: 'Run Mocha test'
