@@ -16,8 +16,6 @@ pool:
 #     node_13_x:
 #       node_version: 13.x
 
-stages:
-
 steps:
 - task: NodeTool@0 
   inputs:
@@ -33,7 +31,7 @@ steps:
   inputs:
     command: 'custom'
     customCommand: 'build'
-    
+
 - task: gulp@0
   inputs:
     gulpFile: 'gulpfile.js'
