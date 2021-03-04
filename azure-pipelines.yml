@@ -32,15 +32,9 @@ steps:
     command: 'custom'
     customCommand: 'build'
 
-- task: gulp@0
+- task: PublishBuildArtifacts@1
   inputs:
-    gulpFile: 'gulpfile.js'
-    targets: 
-    gulpjs: 'node_modules/gulp/bin/gulp.js'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    enableCodeCoverage: true
-    testFiles: 'test/*.js'
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'
 
 # - script: mocha test --reporter mocha-junit-reporter
 #   displayName: 'Run Mocha test'
