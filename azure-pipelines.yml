@@ -9,43 +9,49 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-strategy:
-  matrix:
-    node_12_x:
-      node_version: 12.x
-    node_13_x:
-      node_version: 13.x
+# strategy:
+#   matrix:
+#     node_12_x:
+#       node_version: 12.x
+#     node_13_x:
+#       node_version: 13.x
 
 
 steps:
 - task: NodeTool@0 
   inputs:
-    versionSpec: $(node_version)
+    versionSpec: 13.x
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
 
-- script: mocha test --reporter mocha-junit-reporter
-  displayName: 'Run Mocha test'
-
-- task: PublishTestResults@2
+- task: Npm@1
   inputs:
-    testResultsFiles: '**/TEST-RESULTS.xml'
-    testRunTitle: 'Test results for JavaScript using gulp'
+    command: 'install'
+    verbose: true
 
-- task: PublishCodeCoverageResults@1
-  inputs: 
-    codeCoverageTool: Cobertura
-    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
-    reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'build'
+
+# - script: mocha test --reporter mocha-junit-reporter
+#   displayName: 'Run Mocha test'
+
+# - task: PublishTestResults@2
+#   inputs:
+#     testResultsFiles: '**/TEST-RESULTS.xml'
+#     testRunTitle: 'Test results for JavaScript using gulp'
+
+# - task: PublishCodeCoverageResults@1
+#   inputs: 
+#     codeCoverageTool: Cobertura
+#     summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/*coverage.xml'
+#     reportDirectory: '$(System.DefaultWorkingDirectory)/**/coverage'
 
 
-- script: npm run build
-  displayName: 'npm build'
+# - script: npm run build
+#   displayName: 'npm build'
 
     
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)'
+# - task: PublishBuildArtifacts@1
+#   inputs:
+#     PathtoPublish: '$(System.DefaultWorkingDirectory)'
